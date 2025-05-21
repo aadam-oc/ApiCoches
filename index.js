@@ -103,12 +103,11 @@ app.get('/apicoches/vehiculos/detalles/:id', (req, res) => {
   const id = req.params.id;
   const query = `
     SELECT 
-      v.id_destino,
       v.id_vehiculo, 
       v.nombre_vehiculo, 
-      v.tipo_vehiculo,
       t.tipo_vehiculo AS nombre_tipo_vehiculo, 
-      v.imagen
+      v.imagen,
+      v.precio
     FROM 
       vehiculos_alquiler v
     JOIN 
@@ -145,13 +144,17 @@ app.get('/apicoches/vehiculos/detalles/:id', (req, res) => {
  */
 
 app.get('/apicoches/vehiculos/detalles', (req, res) => {
-  const query = `
-    SELECT 
+    const query = `
+     SELECT 
       v.id_destino,
       v.id_vehiculo, 
       v.nombre_vehiculo, 
+      v.descripcion,
+      v.cv,
+      v.plazas,
       t.tipo_vehiculo AS nombre_tipo_vehiculo, 
-      v.imagen
+      v.imagen,
+      TRUNCATE(v.precio, 0) AS precio
     FROM 
       vehiculos_alquiler v
     JOIN 
